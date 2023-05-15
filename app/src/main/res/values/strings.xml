@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">NeverEndingService</string>
+    <string name="the_current_value_is">Current Value:</string>
+    <string name="no_value_yet">No Value Yet</string>
+    <string name="get_value">Get Value</string>
+    <string name="the_past_values_are">Past Values:</string>
+    <string name="none">--</string>
+</resources>
