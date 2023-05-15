@@ -40,7 +40,7 @@ class MainCoroutineWorker(private val context: Context, workerParams: WorkerPara
     override suspend fun getForegroundInfo(): ForegroundInfo {
         ServiceNotification.notificationText = "do not close the app, please"
         ServiceNotification.notificationIcon = R.drawable.ic_bell
-        val notification = ServiceNotification(context, NOTIFICATION_ID, true)
+        val notification = ServiceNotification(context, true)
         return ForegroundInfo(NOTIFICATION_ID, notification.notification!!)
     }
 }

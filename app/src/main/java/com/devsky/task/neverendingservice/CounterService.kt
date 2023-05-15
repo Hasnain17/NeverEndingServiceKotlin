@@ -23,9 +23,6 @@ class CounterService : Service() {
 
     companion object {
         var currentService: CounterService? = null
-
-        // it is static so to make sure that it is always initialised when the viewmodel live data is
-        // is created, otherwise you risk a disconnection
         var counter: MutableLiveData<Int> = MutableLiveData(0)
         private val TAG = CounterService::class.java.simpleName
         private const val NOTIFICATION_ID = 9974
@@ -51,7 +48,7 @@ class CounterService : Service() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             try {
                 Log.i(TAG, "starting foreground process")
-                currentServiceNotification = ServiceNotification(this, NOTIFICATION_ID, false)
+                currentServiceNotification = ServiceNotification(this, false)
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                     startForeground(NOTIFICATION_ID, currentServiceNotification!!.notification!!, ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION)
                 } else {
@@ -70,14 +67,6 @@ class CounterService : Service() {
         Log.i(TAG, "on bind")
         return null
     }
-
-    /**
-     * it acquires the wakelock
-     * This is not very simple to do. In theory we need a permanent wakelock but that is frowned upon
-     * and I believe Android will kill the app that keeps the wakelock on
-     * So we stop and start the wakelock every 2 hours and we keep it without wakelock for a second
-     * Hopefully this will not cause any issues
-     */
     private fun startWakeLock() {
         Log.i(TAG, "Acquiring the wakelock")
         val frequency = 120*60*1000L /*120 minutes*/
@@ -95,7 +84,6 @@ class CounterService : Service() {
                     Log.i(TAG, "ignore: cannot release the wakelock")
                 }
                 Log.i(TAG, "Acquiring the wakelock again")
-                // let's keep 1 second without a wakelock
                 wakeLock?.acquire(timeInterval - 1000L)
                 delay(timeInterval)
             }
@@ -135,9 +123,6 @@ class CounterService : Service() {
         stopWakeLock()
     }
 
-    /**
-     * it stops all the sensors
-     */
     private fun stopCounter() {
         Log.i(TAG, "stopping counter")
         try {

@@ -10,9 +10,9 @@ import androidx.work.OutOfQuotaPolicy
 import androidx.work.WorkManager
 
 class RestarterBroadcastReceiver : BroadcastReceiver() {
-    private val TAG : String = javaClass.simpleName
+    private val tag : String = javaClass.simpleName
     override fun onReceive(context: Context, intent: Intent) {
-        Log.d(TAG, "received!")
+        Log.d(tag, "received!")
         startWorker(context)
     }
 

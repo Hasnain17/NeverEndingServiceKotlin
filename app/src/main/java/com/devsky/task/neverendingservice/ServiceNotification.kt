@@ -14,8 +14,7 @@ import androidx.core.app.NotificationManagerCompat.IMPORTANCE_MIN
  * Created by Iman on 08/09/2016.
  */
 class ServiceNotification @JvmOverloads constructor(
-    private var context: Context,
-    private val mId: Int,
+    context: Context,
     runningInBackground: Boolean = false
 ) {
     private var notificationBuilder: Builder? = null
